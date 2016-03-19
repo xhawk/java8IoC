@@ -19,7 +19,7 @@ jar {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-mainClassName = "dr.tomek.J8diApplication"
+mainClassName = "dr.tomek.Main"
 
 repositories {
 	mavenCentral()

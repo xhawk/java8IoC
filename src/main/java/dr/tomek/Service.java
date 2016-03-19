@@ -3,19 +3,18 @@ package dr.tomek;
 import java.util.function.*;
 import java.lang.*;
 
-public interface Service {
+public interface Service<T, R> extends Function<T, R> {
 
-	Function<String, UnaryOperator> intFun = (config) -> {
-		UnaryOperator iuo = (b) -> config + b;
-		return iuo;
-	};
+	//BiFunction<String, String, String> catenator = (b, a) -> a + b;
 
-	default Service configure(String config) {
-		intFun.apply(config);
-		return this;
+	//Function<String, Service<String, String>> currier = config -> name -> catenator.apply(config, name);
+	Function<String, Service<String, String>> currier = config -> name -> config + name;
+
+	static Service<String, String> configure(String config) {
+		return currier.apply(config);
 	}
 
-	default Service serve(String name) {
-		return intFun.apply(name);
+	default R serve(T term) {
+		return this.apply(term);
 	}
 }
